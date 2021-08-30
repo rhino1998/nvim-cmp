@@ -57,6 +57,8 @@ core.inline_preview = function(e)
         virt_text = { { text, 'Comment' } },
         virt_text_pos = 'overlay',
         virt_text_win_col = ctx.cursor.col - 1,
+        hl_mode = 'combine',
+        priority = 0,
       }
     )
   end
@@ -179,6 +181,7 @@ core.on_change = function(event)
   if ctx:changed(ctx.prev_context) then
     debug.log('changed')
     core.menu:restore(ctx)
+    core.inline_preview(core.menu.entries[1])
 
     if vim.tbl_contains(config.get().completion.autocomplete or {}, event) then
       core.complete(ctx)
@@ -229,9 +232,7 @@ core.filter = async.throttle(function()
   end
 
   core.menu:update(ctx, core.get_sources())
-  vim.schedule(function()
-    core.inline_preview(core.menu:get_first_entry())
-  end)
+  core.inline_preview(core.menu.entries[1])
 end, 50)
 
 ---Confirm completion.
