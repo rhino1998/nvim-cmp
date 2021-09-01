@@ -7,6 +7,7 @@ local context = require('cmp.context')
 local source = require('cmp.source')
 local menu = require('cmp.menu')
 local misc = require('cmp.utils.misc')
+local str = require('cmp.utils.str')
 local config = require('cmp.config')
 local types = require('cmp.types')
 
